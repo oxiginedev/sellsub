@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Actions\Airtime\BuyAirtimeAction;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,6 +20,9 @@ class BuyAirtime implements ShouldQueue
      */
     public function __construct(
         private User $user,
+        private string $network,
+        private string $phone,
+        private int $amount,
         private string $owner
     ) {
     }
@@ -28,6 +32,12 @@ class BuyAirtime implements ShouldQueue
      */
     public function handle(): void
     {
-        $lock = Cache::restoreLock($this->user->id.':airtime:buy', $this->owner);
+        $lock = Cache::restoreLock('airtime:purchase'.$this->user->id, $this->owner);
+    
+        $buyer = app(BuyAirtimeAction::class)->create();
+
+        $buyer->buy($this->network, $this->phone, $this->amount);
+
+        $lock->release();
     }
 }

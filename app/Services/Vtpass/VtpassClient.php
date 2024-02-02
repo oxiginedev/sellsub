@@ -3,17 +3,17 @@
 namespace App\Services\Vtpass;
 
 use App\Services\Vtpass\Contracts\VtpassClient as VtpassClientContract;
-use App\Services\Vtpass\Resources\UtilityResource;
+use App\Services\Vtpass\Resources\AirtimeResource;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
 class VtpassClient implements VtpassClientContract
 {
-    public function utilities(): UtilityResource
+    public function airtimes(): AirtimeResource
     {
-        return new UtilityResource(
+        return new AirtimeResource(
             client: $this
-        );;
+        );
     }
 
     public function request(): PendingRequest

@@ -3,17 +3,18 @@
 namespace App\Services\Vtpass\Resources;
 
 use App\Services\Vtpass\Contracts\VtpassClient;
+use Illuminate\Http\Client\Response;
 
-class UtilityResource
+class AirtimeResource
 {
     public function __construct(
         private VtpassClient $client,
     ) {
     }
 
-    public function airtime(string $phone, int $amount, string $network, string $reference)
+    public function purchase(string $phone, int $amount, string $network, string $reference): Response
     {
-        $response = $this->client->request()->post(
+        return $this->client->request()->post(
             url: '/api/pay',
             data: [
                 'request_id' => $reference,
