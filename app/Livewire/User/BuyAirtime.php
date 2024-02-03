@@ -2,7 +2,7 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\User\Forms\BuyAirtimeForm;
+use App\Livewire\Forms\User\BuyAirtimeForm;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
